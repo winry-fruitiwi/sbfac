@@ -22,12 +22,11 @@ def setup():
     colorMode(HSB, 360, 100, 100, 100)
     background(220, 79, 35)
     #frameRate(20)
-    movers = []
-    for i in range(100):
-        mover = Vehicle(random(100, width - 100), random(100, height - 100), 10)
-        movers.append(mover)
-    
     size(815, 815)
+    movers = []
+    for i in range(1000):
+        # why do most of the movers start far away from the screen?
+        movers.append(Vehicle(random(100, width - 100), random(100, height - 100)))
 
 
 def draw():
@@ -36,9 +35,10 @@ def draw():
     target = PVector(mouseX, mouseY)
     fill(89, 99, 64)
     circle(target.x, target.y, 20)
+    # print len(movers)
     
     for mover in movers: # I'm tempted to write {} because of Java!
         mover.show()
         mover.update()
         mover.seek(target)
-        mover.apply_force(PVector(0.0001, 0.0003))
+        #mover.apply_force(PVector(0.0001, 0.0003))
