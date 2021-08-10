@@ -5,10 +5,10 @@ class Vehicle:
         self.pos = PVector(x, y)
         self.vel = PVector(0, 0)
         self.acc = PVector(0, 0)
-        self.mass = random(2, 5)
+        self.mass = random(1, 10)
         self.r = sqrt(self.mass) * 5
         self.max_speed = random(2, 10)
-        self.max_force = random(0.05, 0.5)
+        self.max_force = random(0.01, 0.1)
     
     
     # shows the vehicle
@@ -19,9 +19,32 @@ class Vehicle:
         
         fill(0, 0, 100, 80)
         r = self.r
-        triangle(r, 0,
-                 0, r/2,
-                 0, -r/2)
+        # r=10
+        
+        # triangle(r, 0,
+        #          0, r/2,
+        #          0, -r/2)
+        
+        # We want a 9S hackbot. I'm doing the preliminary version: a kite with a dot.
+        
+        # I'm going to manage this better.
+        
+        fill(0, 0, 80, 100)
+        stroke(0, 0, 80, 100)
+        
+        beginShape()
+        vertex(-r, 0)
+        vertex(0, r*1)
+        vertex(2*r, 0)
+        vertex(0, -r*1)
+        
+        endShape()
+        
+        stroke(0, 0, 0, 100)
+        fill(0, 0, 0, 100)
+        circle(0, 0, r)
+        line(0, 0, -r*1, 0)
+        noStroke()
         
         popMatrix()
     

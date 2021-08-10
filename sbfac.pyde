@@ -6,7 +6,7 @@
 # 
 # v0.01:    project template, Vehicle.py +comments
 # v0.02:    basic triangle chases ball with seek
-# v0.021:   9S hackbot
+# v0.02.1:  9S hackbot
 # v0.03:    flee
 # v0.04:    pursue, evade
 # v0.04.1:  quadratic pursuit + evade in method
@@ -24,7 +24,7 @@ def setup():
     #frameRate(20)
     size(815, 815)
     movers = []
-    for i in range(1000):
+    for i in range(10):
         # why do most of the movers start far away from the screen?
         movers.append(Vehicle(random(100, width - 100), random(100, height - 100)))
 
