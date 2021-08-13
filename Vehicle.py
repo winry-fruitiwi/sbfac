@@ -5,10 +5,10 @@ class Vehicle:
         self.pos = PVector(x, y)
         self.vel = PVector(0, 0)
         self.acc = PVector(0, 0)
-        self.mass = random(1, 10)
-        self.r = sqrt(self.mass) * 5
-        self.max_speed = random(2, 10)
-        self.max_force = random(0.01, 0.1)
+        self.mass = random(6, 20)
+        self.r = sqrt(self.mass) * 15
+        self.max_speed = random(6, 10)
+        self.max_force = random(0.05, 0.8)
     
     
     # shows the vehicle
@@ -30,21 +30,42 @@ class Vehicle:
         # I'm going to manage this better.
         
         fill(0, 0, 80, 100)
-        stroke(0, 0, 80, 100)
+        #stroke(0, 0, 80, 100)
         
-        beginShape()
-        vertex(-r, 0)
-        vertex(0, r*1)
-        vertex(2*r, 0)
-        vertex(0, -r*1)
-        
-        endShape()
         
         stroke(0, 0, 0, 100)
+        strokeWeight(1)
+        
+        
+        beginShape()
+        vertex(-r/3, 0) # back
+        vertex(0, r/3) # top
+        vertex(r, 0) # nose
+        vertex(0, -r/3) # bottom
+        vertex(-r/3, 0) # back
+        endShape()
+        
+        
         fill(0, 0, 0, 100)
-        circle(0, 0, r)
-        line(0, 0, -r*1, 0)
+        strokeWeight(2)
+        # black circle and line extending to the back
+        circle(0, 0, r/4)
+        line(0, 0, -r/3, 0)
+        
+        x = (r/3)/(sqrt(3)+1.0/3)
+        
+        # complicated equation lines
+        line(0, 0, x, sqrt(3) * x)
+        line(0, 0, x, -sqrt(3) * x)
         noStroke()
+        
+        strokeWeight(1)
+        stroke(0, 0, 0, 100)
+        fill(0, 0, 80, 100)
+        
+        # squares on butt
+        square(-r/3, r/3, r/6)
+        square(-r/3, -r/3, r/6)
         
         popMatrix()
     

@@ -19,6 +19,7 @@ from Vehicle import *
 def setup():
     global movers
     noStroke()
+    rectMode(CENTER) # there is no ; in python. I'm used to Java now!
     colorMode(HSB, 360, 100, 100, 100)
     background(220, 79, 35)
     #frameRate(20)
@@ -38,7 +39,7 @@ def draw():
     # print len(movers)
     
     for mover in movers: # I'm tempted to write {} because of Java!
-        mover.show()
         mover.update()
+        mover.show()
         mover.seek(target)
         #mover.apply_force(PVector(0.0001, 0.0003))
