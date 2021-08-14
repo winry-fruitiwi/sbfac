@@ -6,7 +6,7 @@ class Vehicle:
         self.vel = PVector(0, 0)
         self.acc = PVector(0, 0)
         self.mass = random(6, 20)
-        self.r = sqrt(self.mass) * 15
+        self.r = sqrt(self.mass)*15
         self.max_speed = random(6, 10)
         self.max_force = random(0.05, 0.8)
     
@@ -17,7 +17,7 @@ class Vehicle:
         translate(self.pos.x, self.pos.y)
         rotate(self.vel.heading())
         
-        fill(0, 0, 100, 80)
+        fill(0, 0, 80, 80)
         r = self.r
         # r=10
         
@@ -29,11 +29,11 @@ class Vehicle:
         
         # I'm going to manage this better.
         
-        fill(0, 0, 80, 100)
-        #stroke(0, 0, 80, 100)
+        fill(0, 0, 80, 80)
+        #stroke(0, 0, 80, 80)
         
         
-        stroke(0, 0, 0, 100)
+        stroke(0, 0, 0, 80)
         strokeWeight(1)
         
         
@@ -60,8 +60,8 @@ class Vehicle:
         noStroke()
         
         strokeWeight(1)
-        stroke(0, 0, 0, 100)
-        fill(0, 0, 80, 100)
+        stroke(0, 0, 0, 80)
+        fill(0, 0, 80, 80)
         
         # squares on butt
         square(-r/3, r/3, r/6)
@@ -94,4 +94,10 @@ class Vehicle:
         desired.setMag(self.max_speed)
         desired.sub(self.vel)
         desired.limit(self.max_force)
-        self.apply_force(desired)
+        return desired
+    
+    # this makes the mover do the same as seek, except the reverse
+    def flee(self, target):
+        desired = self.seek(target).mult(-1)
+        return desired
+    
