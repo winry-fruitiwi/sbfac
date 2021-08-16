@@ -1,6 +1,6 @@
 # this class represents an object that can seek other targets
 
-class Vehicle:
+class Vehicle(object):
     def __init__(self, x, y): #, radius):
         self.pos = PVector(x, y)
         self.vel = PVector(0, 0)
@@ -8,7 +8,7 @@ class Vehicle:
         self.mass = random(6, 20)
         self.r = sqrt(self.mass)*15
         self.max_speed = random(6, 10)
-        self.max_force = random(0.05, 0.8)
+        self.max_force = random(0.5, 0.8)
     
     
     # shows the vehicle
@@ -68,6 +68,17 @@ class Vehicle:
         square(-r/3, -r/3, r/6)
         
         popMatrix()
+        
+        
+        pushMatrix()
+        # acceleration vector in teal
+        translate(self.pos.x, self.pos.y)
+        rotate(self.acc.heading())
+        stroke(201, 96, 83)
+        strokeWeight(2)
+        line(0, 0, self.acc.mag()*self.r**2, 0)
+        
+        popMatrix()
     
     
     # modifies the velocity and acceleration
@@ -90,14 +101,44 @@ class Vehicle:
     def seek(self, target): # target is a PVector!
         # we need to find the difference between the target's and our positions, which will
         # help us find the desired velocity.
-        desired = PVector.sub(target, self.pos) # we don't want to modify target.
+        desired = PVector.sub(target.pos, self.pos) # we don't want to modify target.
         desired.setMag(self.max_speed)
         desired.sub(self.vel)
         desired.limit(self.max_force)
         return desired
     
+    
+    def pursue(self, target): # target is a Target, a subclass of Vehicle!
+        # we need to find the difference between the target's and our positions, which will
+        # help us find the desired velocity.
+        target_pos = PVector.add(target.pos, target.vel)
+        
+        
+        desired = PVector.sub(target_pos, self.pos) # we don't want to modify target.
+        desired.setMag(self.max_speed)
+        desired.sub(self.vel)
+        desired.limit(self.max_force)
+        return desired
+    
+    
+    
     # this makes the mover do the same as seek, except the reverse
     def flee(self, target):
         desired = self.seek(target).mult(-1)
         return desired
+
+
+
+class Target(Vehicle):
+    def __init__(self, x, y):
+        super(Target, self).__init__(x, y)
+        self.r = 20
+        self.vel = PVector.random2D().mult(100)
+        # self.max_speed = 2
     
+    def show(self):
+        pushMatrix()
+        translate(self.pos.x, self.pos.y)
+        fill(89, 99, 64)
+        circle(0, 0, self.r)
+        popMatrix()
